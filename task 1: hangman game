@@ -1,0 +1,25 @@
+import random
+words = ['python', 'hangman', 'challenge', 'programming', 'openai']
+word = random.choice(words)
+guessed = ['_'] * len(word)
+tries = 6
+guessed_letters = set()
+
+while tries > 0 and '_' in guessed:
+    print('Word:', ' '.join(guessed))
+    print('Tries left:', tries)
+    guess = input('Guess a letter: ').lower()
+    if len(guess) != 1 or not guess.isalpha() or guess in guessed_letters:
+        continue
+    guessed_letters.add(guess)
+    if guess in word:
+        for i, letter in enumerate(word):
+            if letter == guess:
+                guessed[i] = guess
+    else:
+        tries -= 1
+
+if '_' not in guessed:
+    print('Congratulations! You guessed the word:', word)
+else:
+    print('Game over! The word was:', word)
